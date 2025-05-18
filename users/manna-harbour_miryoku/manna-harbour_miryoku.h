@@ -12,6 +12,9 @@ enum miryoku_layers {
 #define MIRYOKU_X(LAYER, STRING) U_##LAYER,
 MIRYOKU_LAYER_LIST
 #undef MIRYOKU_X
+  BASE,
+  SYMB,
+  MDIA,
 };
 
 #define U_MACRO_VA_ARGS(macro, ...) macro(__VA_ARGS__)
