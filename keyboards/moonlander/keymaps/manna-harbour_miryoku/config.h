@@ -25,10 +25,15 @@ MIRYOKU_X(FUN,    "Fun") \
 MIRYOKU_X(QWERTY, "Qwerty") \
 MIRYOKU_X(QWFN,   "Qwerty Fn")
 
-// The red thumb keys toggle between miryoku and QWERTY. QWERTY sits above all
-// the miryoku layers, so toggling it off drops back to whichever miryoku base
-// layer was active.
-#define U_QWTG TG(U_QWERTY)
+// Pressing both red thumb keys together (a combo, see keymap.c) toggles
+// between miryoku and QWERTY. On their own the red keys do nothing, so a stray
+// press is harmless. QWERTY sits above all the miryoku layers, so toggling it
+// off drops back to whichever miryoku base layer was active.
+#define U_RED_L QK_USER_0
+#define U_RED_R QK_USER_1
+
+#define COMBO_COUNT 1
+#define COMBO_TERM 100
 
 #define LAYOUT_miryoku(\
      K00, K01, K02, K03, K04,               K05, K06, K07, K08, K09,\
@@ -41,16 +46,16 @@ XXX, XXX, XXX, XXX, XXX, XXX, XXX,     XXX, XXX, XXX, XXX, XXX, XXX, XXX,\
 XXX, K00, K01, K02, K03, K04, XXX,     XXX, K05, K06, K07, K08, K09, XXX,\
 XXX, K10, K11, K12, K13, K14, XXX,     XXX, K15, K16, K17, K18, K19, XXX,\
 XXX, K20, K21, K22, K23, K24,               K25, K26, K27, K28, K29, XXX,\
-XXX, XXX, XXX, XXX, K32,      U_QWTG,  U_QWTG,   K37, XXX, XXX, XXX, XXX,\
+XXX, XXX, XXX, XXX, K32,      U_RED_L, U_RED_R,  K37, XXX, XXX, XXX, XXX,\
                     K33, K34, XXX,     XXX, K35, K36\
 )
 
 // QWERTY
 //
 // ,------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------.
-// |  =   |  1   |  2   |  3   |  4   |  5   | DEL  |  | PGUP |  6   |  7   |  8   |  9   |  0   |  -   |
+// |  =   |  1   |  2   |  3   |  4   |  5   | BSPC |  | PGUP |  6   |  7   |  8   |  9   |  0   |  -   |
 // |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-// | TAB  |  Q   |  W   |  E   |  R   |  T   |  FN  |  | PGDN |  Y   |  U   |  I   |  O   |  P   |  \   |
+// | TAB  |  Q   |  W   |  E   |  R   |  T   | ENT  |  | PGDN |  Y   |  U   |  I   |  O   |  P   |  \   |
 // |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
 // | ESC  |  A   |  S   |  D   |  F   |  G   | LGUI |  | RCTL |  H   |  J   |  K   |  L   |  ;   |  '   |
 // |------+------+------+------+------+------+------'  `------+------+------+------+------+------+------|
@@ -60,18 +65,18 @@ XXX, XXX, XXX, XXX, K32,      U_QWTG,  U_QWTG,   K37, XXX, XXX, XXX, XXX,\
 // `----------------------------------'  | RED  |    | RED  |  `----------------------------------'
 //                                       `------'    `------'
 //                             ,------+------+------.  ,------+------+------.
-//                             | SPC  | LCTL | LALT |  | RALT | ENT  | BSPC |
+//                             | SPC  | LCTL | LALT |  | RALT |  FN  | DEL  |
 //                             `------+------+------'  `------+------+------'
 //
-// RED = toggle back to miryoku. FN = hold for the QWFN layer.
+// RED+RED (both together) = back to miryoku. FN = hold for the QWFN layer.
 #define MIRYOKU_LAYERMAPPING_QWERTY LAYOUT_moonlander
 #define MIRYOKU_LAYER_QWERTY \
-KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_DEL,      KC_PGUP, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
-KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    MO(U_QWFN),  KC_PGDN, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, \
+KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_BSPC,     KC_PGUP, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
+KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_ENT,      KC_PGDN, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, \
 KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LGUI,     KC_RCTL, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
 KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-KC_GRV,  KC_HOME, KC_END,  KC_LEFT, KC_RGHT,          U_QWTG,      U_QWTG,           KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC, MO(U_QWFN), \
-                                    KC_SPC,  KC_LCTL, KC_LALT,     KC_RALT, KC_ENT,  KC_BSPC
+KC_GRV,  KC_HOME, KC_END,  KC_LEFT, KC_RGHT,          U_RED_L,     U_RED_R,          KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC, MO(U_QWFN), \
+                                    KC_SPC,  KC_LCTL, KC_LALT,     KC_RALT, MO(U_QWFN), KC_DEL
 
 // QWFN (held from QWERTY; blank keys fall through to QWERTY)
 //
