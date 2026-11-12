@@ -25,15 +25,13 @@ MIRYOKU_X(FUN,    "Fun") \
 MIRYOKU_X(QWERTY, "Qwerty") \
 MIRYOKU_X(QWFN,   "Qwerty Fn")
 
-// Pressing both red thumb keys together (a combo, see keymap.c) toggles
-// between miryoku and QWERTY. On their own the red keys do nothing, so a stray
-// press is harmless. QWERTY sits above all the miryoku layers, so toggling it
-// off drops back to whichever miryoku base layer was active.
-#define U_RED_L QK_USER_0
-#define U_RED_R QK_USER_1
-
-#define COMBO_COUNT 1
-#define COMBO_TERM 100
+// Red thumb keys: holding either one activates the QWFN layer, where the red
+// keys toggle QWERTY. So hold one red key and press the other to switch between
+// miryoku and QWERTY; a single stray press can't switch layouts. QWERTY sits
+// above all the miryoku layers, so toggling it off drops back to whichever
+// miryoku base layer was active.
+#define U_RED MO(U_QWFN)
+#define U_QWTG TG(U_QWERTY)
 
 #define LAYOUT_miryoku(\
      K00, K01, K02, K03, K04,               K05, K06, K07, K08, K09,\
@@ -46,7 +44,7 @@ XXX, XXX, XXX, XXX, XXX, XXX, XXX,     XXX, XXX, XXX, XXX, XXX, XXX, XXX,\
 XXX, K00, K01, K02, K03, K04, XXX,     XXX, K05, K06, K07, K08, K09, XXX,\
 XXX, K10, K11, K12, K13, K14, XXX,     XXX, K15, K16, K17, K18, K19, XXX,\
 XXX, K20, K21, K22, K23, K24,               K25, K26, K27, K28, K29, XXX,\
-XXX, XXX, XXX, XXX, K32,      U_RED_L, U_RED_R,  K37, XXX, XXX, XXX, XXX,\
+XXX, XXX, XXX, XXX, K32,      U_RED,   U_RED,    K37, XXX, XXX, XXX, XXX,\
                     K33, K34, XXX,     XXX, K35, K36\
 )
 
@@ -68,17 +66,18 @@ XXX, XXX, XXX, XXX, K32,      U_RED_L, U_RED_R,  K37, XXX, XXX, XXX, XXX,\
 //                             | SPC  | LCTL | LALT |  | RALT |  FN  | DEL  |
 //                             `------+------+------'  `------+------+------'
 //
-// RED+RED (both together) = back to miryoku. FN = hold for the QWFN layer.
+// Hold one RED and press the other = back to miryoku. FN (or RED) = hold for QWFN.
 #define MIRYOKU_LAYERMAPPING_QWERTY LAYOUT_moonlander
 #define MIRYOKU_LAYER_QWERTY \
 KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_BSPC,     KC_PGUP, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
 KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_ENT,      KC_PGDN, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, \
 KC_EQL,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LGUI,     KC_RCTL, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
 KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-KC_GRV,  KC_HOME, KC_END,  KC_LEFT, KC_RGHT,          U_RED_L,     U_RED_R,          KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC, MO(U_QWFN), \
+KC_GRV,  KC_HOME, KC_END,  KC_LEFT, KC_RGHT,          U_RED,       U_RED,            KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC, MO(U_QWFN), \
                                     KC_SPC,  KC_LCTL, KC_LALT,     KC_RALT, MO(U_QWFN), KC_DEL
 
-// QWFN (held from QWERTY; blank keys fall through to QWERTY)
+// QWFN (held via FN or either red key; blank keys fall through to the layer below)
+// The red keys here toggle QWERTY on/off.
 //
 // ,------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------.
 // |      |  F1  |  F2  |  F3  |  F4  |  F5  | F11  |  | F12  |  F6  |  F7  |  F8  |  F9  | F10  |      |
@@ -90,7 +89,7 @@ KC_GRV,  KC_HOME, KC_END,  KC_LEFT, KC_RGHT,          U_RED_L,     U_RED_R,     
 // |      | MUTE | VOL- | VOL+ | PLAY | MENU |                |  ,   |  1   |  2   |  3   | ENT  |      |
 // |------+------+------+------+------+------'                `------+------+------+------+------+------|
 // | CAPS | INS  | BRI- | BRI+ | PAUS |  ,------.    ,------.  |  0   |  .   | NUM  |  =   |      |
-// `----------------------------------'  |      |    |      |  `----------------------------------'
+// `----------------------------------'  |QWERTY|    |QWERTY|  `----------------------------------'
 //                                       `------'    `------'
 //                             ,------+------+------.  ,------+------+------.
 //                             |      |      |      |  |      |      |      |
@@ -101,5 +100,5 @@ KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,      KC_F12,  KC_F
 KC_TRNS, KC_MPRV, KC_UP,   KC_MNXT, KC_HOME, KC_PGUP, KC_TRNS,     KC_TRNS, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, KC_PSCR, \
 KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  KC_PGDN, KC_TRNS,     KC_TRNS, KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_SCRL, \
 KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_APP,                        KC_PCMM, KC_P1,   KC_P2,   KC_P3,   KC_PENT, KC_TRNS, \
-KC_CAPS, KC_INS,  KC_BRID, KC_BRIU, KC_PAUS,          KC_TRNS,     KC_TRNS,          KC_P0,   KC_PDOT, KC_NUM,  KC_PEQL, KC_TRNS, \
+KC_CAPS, KC_INS,  KC_BRID, KC_BRIU, KC_PAUS,          U_QWTG,      U_QWTG,           KC_P0,   KC_PDOT, KC_NUM,  KC_PEQL, KC_TRNS, \
                                     KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
