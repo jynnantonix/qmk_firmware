@@ -59,7 +59,7 @@ XXX, XXX, XXX, XXX, K32,      U_RED,   U_RED,    K37, XXX, XXX, XXX, XXX,\
 // |------+------+------+------+------+------+------'  `------+------+------+------+------+------+------|
 // | LSFT |  Z   |  X   |  C   |  V   |  B   |                |  N   |  M   |  ,   |  .   |  /   | RSFT |
 // |------+------+------+------+------+------'                `------+------+------+------+------+------|
-// |  `   |  UP  | DOWN | LEFT | RGHT |  ,------.    ,------.  | HOME | END  |  [   |  ]   |  FN  |
+// |  `   | LEFT | DOWN |  UP  | RGHT |  ,------.    ,------.  | HOME | END  |  [   |  ]   |  FN  |
 // `----------------------------------'  | RED  |    | RED  |  `----------------------------------'
 //                                       `------'    `------'
 //                             ,------+------+------.  ,------+------+------.
@@ -73,7 +73,7 @@ KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_BSPC,     KC_PGUP, KC_6
 KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LGUI,     KC_PGDN, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, \
 KC_EQL,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_ENT,      KC_RCTL, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
 KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                          KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-KC_GRV,  KC_UP,   KC_DOWN, KC_LEFT, KC_RGHT,          U_RED,       U_RED,            KC_HOME, KC_END,  KC_LBRC, KC_RBRC, MO(U_QWFN), \
+KC_GRV,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,          U_RED,       U_RED,            KC_HOME, KC_END,  KC_LBRC, KC_RBRC, MO(U_QWFN), \
                                     KC_SPC,  KC_LCTL, KC_LALT,     KC_RALT, MO(U_QWFN), KC_DEL
 
 // QWFN (held via FN or either red key; blank keys fall through to the layer below)
